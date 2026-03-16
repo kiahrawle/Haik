@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HaiK — Feel Connected, Instantly.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Architects+Daughter&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream: #F5F0E8;
+  --warm: #EDE5D4;
+  --paper: #FAF6EE;
+  --ink: #1C1814;
+  --ink-light: #4A4035;
+  --ink-muted: #8C7B68;
+  --orange: #E8622A;
+  --orange-light: #F2956A;
+  --orange-pale: #FBE8DC;
+  --green: #4A7C59;
+  --green-pale: #DFF0E5;
+  --serif: 'Lora', Georgia, serif;
+  --hand: 'Architects Daughter', cursive;
+  --sans: 'Plus Jakarta Sans', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── GRAIN OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 999;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 48px;
+  background: rgba(250,246,238,0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(28,24,20,0.08);
+}
+
+.nav-logo {
+  font-family: var(--hand);
+  font-size: 26px; color: var(--ink);
+  text-decoration: none; letter-spacing: -0.5px;
+}
+.nav-logo span { color: var(--orange); }
+
+.nav-links {
+  display: flex; gap: 36px; list-style: none;
+}
+.nav-links a {
+  font-size: 14px; color: var(--ink-muted);
+  text-decoration: none; font-weight: 500;
+  transition: color 0.2s;
+  font-family: var(--sans);
+}
+.nav-links a:hover { color: var(--orange); }
+
+.nav-join {
+  background: var(--orange); color: white;
+  border: none; padding: 10px 24px; border-radius: 100px;
+  font-family: var(--hand); font-size: 15px;
+  cursor: pointer; transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+.nav-join:hover { background: var(--ink); transform: rotate(-1deg); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  padding: 120px 48px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  background: var(--cream);
+  overflow: hidden;
+}
+
+/* Squiggly background lines — handdrawn feel */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    radial-gradient(circle 400px at 80% 30%, rgba(232,98,42,0.06) 0%, transparent 70%),
+    radial-gradient(circle 300px at 10% 80%, rgba(74,124,89,0.05) 0%, transparent 70%);
+}
+
+.hero-left { position: relative; z-index: 1; }
+
+.hero-kicker {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--hand); font-size: 14px;
+  color: var(--orange); margin-bottom: 24px;
+  background: var(--orange-pale); border-radius: 6px;
+  padding: 6px 14px; border: 1px dashed rgba(232,98,42,0.3);
+  transform: rotate(-1.5deg); display: inline-block;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(44px, 5.5vw, 72px);
+  font-weight: 600; line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.hero h1 em {
+  font-style: italic; color: var(--orange);
+}
+.hero h1 .underline-sketch {
+  position: relative; display: inline-block;
+}
+.hero h1 .underline-sketch::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0; right: 0; height: 6px;
+  background-image: url("data:image/svg+xml,%3Csvg width='200' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 4 Q25 1 50 4 Q75 7 100 4 Q125 1 150 4 Q175 7 200 4' stroke='%23E8622A' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.hero-sub {
+  font-size: 17px; color: var(--ink-light);
+  line-height: 1.75; max-width: 440px;
+  margin: 24px 0 40px;
+  font-family: var(--sans); font-weight: 300;
+}
+
+.hero-actions {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+}
+
+.btn-main {
+  background: var(--orange); color: white;
+  border: none; padding: 16px 36px; border-radius: 100px;
+  font-family: var(--hand); font-size: 17px;
+  cursor: pointer; transition: all 0.25s;
+  display: flex; align-items: center; gap: 10px;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.btn-main:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.btn-secondary {
+  background: none; border: none;
+  color: var(--ink-muted); font-family: var(--sans);
+  font-size: 14px; cursor: pointer;
+  text-decoration: underline; text-underline-offset: 4px;
+  text-decoration-style: dotted;
+  transition: color 0.2s;
+}
+.btn-secondary:hover { color: var(--orange); }
+
+/* handwritten annotation */
+.hero-annotation {
+  font-family: var(--hand); font-size: 13px;
+  color: var(--ink-muted); margin-top: 20px;
+  display: flex; align-items: center; gap: 6px;
+  transform: rotate(-1deg);
+}
+.hero-annotation::before {
+  content: '↑'; font-size: 18px; color: var(--orange);
+}
+
+.hero-right {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; gap: 20px;
+}
+
+/* Map-like visual */
+.map-card {
+  background: white;
+  border-radius: 24px;
+  border: 2px solid rgba(28,24,20,0.08);
+  overflow: hidden;
+  box-shadow: 8px 8px 0 rgba(28,24,20,0.06);
+  position: relative;
+}
+
+.map-bg {
+  height: 260px;
+  background:
+    linear-gradient(rgba(240,234,224,0.7), rgba(240,234,224,0.7)),
+    repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(28,24,20,0.04) 30px, rgba(28,24,20,0.04) 31px),
+    repeating-linear-gradient(90deg, transparent, transparent 30px, rgba(28,24,20,0.04) 30px, rgba(28,24,20,0.04) 31px);
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* People dots on map */
+.dot-person {
+  position: absolute;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  animation: floatBob 3s ease-in-out infinite;
+}
+.dot-person:nth-child(2) { animation-delay: 0.8s; }
+.dot-person:nth-child(3) { animation-delay: 1.6s; }
+.dot-person:nth-child(4) { animation-delay: 0.4s; }
+.dot-person:nth-child(5) { animation-delay: 1.2s; }
+
+@keyframes floatBob {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.dot-bubble {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  border: 3px solid white;
+}
+.dot-bubble.orange { background: var(--orange-pale); }
+.dot-bubble.green { background: var(--green-pale); }
+.dot-bubble.warm { background: #FFF5CC; }
+
+.dot-label {
+  background: white; border-radius: 100px;
+  padding: 3px 10px; font-size: 11px; font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  white-space: nowrap; color: var(--ink);
+}
+.dot-label.online::before {
+  content: ''; display: inline-block;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #4CAF50; margin-right: 5px;
+  vertical-align: middle;
+}
+
+.p1 { top: 30px; left: 15%; }
+.p2 { top: 50px; right: 20%; }
+.p3 { top: 120px; left: 40%; }
+.p4 { bottom: 40px; left: 20%; }
+.p5 { bottom: 30px; right: 25%; }
+
+/* pulse rings */
+.pulse-ring {
+  position: absolute;
+  width: 80px; height: 80px; border-radius: 50%;
+  border: 2px solid rgba(232,98,42,0.3);
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  animation: pulseRing 2.5s ease-out infinite;
+}
+.pulse-ring:nth-child(2) { animation-delay: 0.8s; }
+.pulse-ring:nth-child(3) { animation-delay: 1.6s; }
+@keyframes pulseRing {
+  0% { width: 60px; height: 60px; opacity: 0.6; }
+  100% { width: 200px; height: 200px; opacity: 0; }
+}
+
+.map-footer {
+  padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid rgba(28,24,20,0.06);
+}
+.map-status { font-size: 13px; color: var(--ink-muted); display: flex; align-items: center; gap: 6px; }
+.map-status::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #4CAF50; box-shadow: 0 0 6px #4CAF50; display: block; }
+.map-count { font-family: var(--hand); font-size: 14px; color: var(--orange); }
+
+/* Story cards row */
+.story-cards {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.story-card {
+  background: white; border-radius: 16px;
+  border: 1.5px solid rgba(28,24,20,0.08);
+  padding: 16px 18px;
+  box-shadow: 3px 3px 0 rgba(28,24,20,0.04);
+  transition: transform 0.2s;
+}
+.story-card:hover { transform: translateY(-3px); }
+.story-card:nth-child(1) { transform: rotate(-0.8deg); }
+.story-card:nth-child(1):hover { transform: rotate(-0.8deg) translateY(-3px); }
+.story-card:nth-child(2) { transform: rotate(0.5deg); }
+.story-card:nth-child(2):hover { transform: rotate(0.5deg) translateY(-3px); }
+
+.story-emoji { font-size: 22px; margin-bottom: 8px; }
+.story-text { font-family: var(--serif); font-size: 13px; font-style: italic; color: var(--ink-light); line-height: 1.5; }
+.story-who { font-size: 11px; color: var(--ink-muted); margin-top: 8px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+
+/* ── WHY SECTION ── */
+.why {
+  padding: 100px 48px;
+  background: var(--paper);
+  position: relative;
+}
+
+.section-header { margin-bottom: 64px; }
+.section-eyebrow {
+  font-family: var(--hand); font-size: 15px;
+  color: var(--orange); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-eyebrow::after { content: ''; flex: 0 0 40px; height: 1.5px; background: var(--orange); opacity: 0.4; }
+
+.section-title {
+  font-family: var(--serif); font-size: clamp(32px, 4vw, 52px);
+  font-weight: 600; line-height: 1.15; letter-spacing: -0.02em;
+}
+.section-title em { font-style: italic; color: var(--orange); }
+
+/* ── WHY — editorial rows ── */
+.why-rows { display: flex; flex-direction: column; gap: 0; margin-top: 72px; }
+
+.why-row {
+  display: grid;
+  grid-template-columns: 100px 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  padding: 48px 0;
+  border-top: 1.5px solid rgba(28,24,20,0.1);
+  transition: background 0.2s;
+  position: relative;
+}
+.why-row:last-child { border-bottom: 1.5px solid rgba(28,24,20,0.1); }
+.why-row:hover { background: rgba(232,98,42,0.025); margin: 0 -24px; padding-left: 24px; padding-right: 24px; }
+
+.why-row-num {
+  font-family: var(--hand);
+  font-size: 52px; line-height: 1;
+  color: rgba(232,98,42,0.18);
+  padding-top: 4px;
+  transition: color 0.3s;
+}
+.why-row:hover .why-row-num { color: var(--orange); }
+
+.why-row-title {
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 600; line-height: 1.2;
+  letter-spacing: -0.02em;
+  padding-top: 6px;
+}
+.why-row-title em { font-style: italic; color: var(--orange); }
+
+.why-row-body {
+  font-size: 15px; color: var(--ink-light);
+  line-height: 1.75; padding-top: 8px;
+}
+
+.why-row-tag {
+  display: inline-block; font-family: var(--hand);
+  font-size: 11px; color: var(--ink-muted);
+  margin-top: 16px; letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-bottom: 1px dashed rgba(28,24,20,0.2);
+  padding-bottom: 2px;
+}
+
+/* ── TRUST — manifesto style ── */
+.trust-manifesto {
+  margin-top: 72px;
+}
+
+.trust-statement {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
+  padding: 36px 0;
+  border-top: 1.5px solid rgba(28,24,20,0.1);
+  transition: all 0.25s;
+  cursor: default;
+}
+.trust-statement:last-child { border-bottom: 1.5px solid rgba(28,24,20,0.1); }
+.trust-statement:hover { padding-left: 16px; padding-right: 16px; margin: 0 -16px; background: var(--cream); border-radius: 4px; }
+
+.trust-stmt-left { display: flex; flex-direction: column; gap: 8px; }
+
+.trust-stmt-label {
+  font-family: var(--hand); font-size: 11px;
+  color: var(--orange); letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.trust-stmt-text {
+  font-family: var(--serif);
+  font-size: clamp(18px, 2vw, 26px);
+  font-weight: 500; line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.trust-stmt-text em { font-style: italic; color: var(--orange); }
+
+.trust-stmt-sub {
+  font-size: 14px; color: var(--ink-muted); line-height: 1.65;
+  max-width: 540px; margin-top: 4px;
+}
+
+.trust-stmt-marker {
+  font-family: var(--hand); font-size: 28px;
+  color: rgba(232,98,42,0.15);
+  flex-shrink: 0; user-select: none;
+  transition: color 0.25s, transform 0.25s;
+}
+.trust-statement:hover .trust-stmt-marker {
+  color: var(--orange); transform: rotate(-8deg);
+}
+
+/* margin annotation */
+.margin-note {
+  font-family: var(--hand); font-size: 13px;
+  color: var(--ink-muted); transform: rotate(-2deg);
+  position: absolute; right: -20px; top: 50%;
+  writing-mode: vertical-rl; text-orientation: mixed;
+  display: none;
+}
+
+/* ── HOW IT WORKS ── */
+.how {
+  padding: 100px 48px;
+  background: var(--cream);
+}
+
+.steps { display: flex; flex-direction: column; gap: 0; margin-top: 64px; max-width: 700px; }
+
+.step {
+  display: grid; grid-template-columns: 80px 1fr;
+  gap: 32px; align-items: flex-start;
+  padding-bottom: 48px;
+  position: relative;
+}
+.step:not(:last-child)::after {
+  content: '';
+  position: absolute; left: 40px; top: 80px;
+  width: 1.5px; bottom: 0;
+  background: repeating-linear-gradient(to bottom, var(--orange) 0, var(--orange) 6px, transparent 6px, transparent 12px);
+}
+
+.step-num {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: white; border: 2px solid rgba(28,24,20,0.12);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--hand); font-size: 22px; color: var(--orange);
+  box-shadow: 3px 3px 0 rgba(28,24,20,0.06);
+  flex-shrink: 0;
+  position: relative; z-index: 1;
+}
+
+.step-content { padding-top: 12px; }
+.step-title {
+  font-family: var(--serif); font-size: 22px;
+  font-weight: 600; margin-bottom: 10px;
+}
+.step-desc { font-size: 15px; color: var(--ink-light); line-height: 1.7; }
+.step-tag {
+  display: inline-block; font-family: var(--hand);
+  font-size: 12px; color: var(--orange);
+  background: var(--orange-pale); border-radius: 4px;
+  padding: 3px 10px; margin-top: 12px;
+  border: 1px dashed rgba(232,98,42,0.3);
+}
+
+/* How it looks split */
+.how-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+
+/* ── FEATURES ── */
+.features {
+  padding: 100px 48px;
+  background: var(--paper);
+}
+
+.features-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 20px; margin-top: 64px;
+}
+
+.feat {
+  background: white;
+  border-radius: 20px;
+  border: 1.5px solid rgba(28,24,20,0.08);
+  padding: 32px 28px;
+  transition: all 0.3s;
+  position: relative;
+}
+.feat:hover { transform: translateY(-4px) rotate(-0.3deg); box-shadow: 6px 6px 0 rgba(28,24,20,0.06); }
+
+.feat-num {
+  font-family: var(--hand); font-size: 40px;
+  color: rgba(232,98,42,0.12); line-height: 1;
+  margin-bottom: 12px;
+}
+.feat-icon { font-size: 28px; margin-bottom: 14px; }
+.feat-title {
+  font-family: var(--serif); font-size: 18px;
+  font-weight: 600; margin-bottom: 10px;
+}
+.feat-desc { font-size: 13.5px; color: var(--ink-light); line-height: 1.7; }
+
+/* ── PSYCHOLOGY ── */
+.psych {
+  padding: 100px 48px;
+  background: var(--ink);
+  color: var(--cream);
+  position: relative; overflow: hidden;
+}
+.psych::before {
+  content: '';
+  position: absolute; top: -100px; right: -100px;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,98,42,0.08) 0%, transparent 70%);
+}
+
+.psych .section-eyebrow { color: var(--orange-light); }
+.psych .section-eyebrow::after { background: var(--orange-light); }
+.psych .section-title { color: var(--cream); }
+
+.psych-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px; margin-top: 64px;
+}
+
+.psych-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px; padding: 32px 28px;
+  transition: all 0.3s;
+}
+.psych-card:hover { background: rgba(255,255,255,0.07); transform: translateY(-3px); }
+
+.psych-concept {
+  font-family: var(--hand); font-size: 13px;
+  color: var(--orange-light); margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+.psych-title {
+  font-family: var(--serif); font-size: 19px;
+  font-weight: 600; margin-bottom: 12px;
+  color: white;
+}
+.psych-quote {
+  font-family: var(--serif); font-size: 13.5px;
+  font-style: italic; color: rgba(245,240,232,0.6);
+  line-height: 1.65; border-left: 2px solid var(--orange);
+  padding-left: 14px; margin-bottom: 12px;
+}
+.psych-desc { font-size: 13px; color: rgba(245,240,232,0.5); line-height: 1.7; }
+
+/* ── TRUST ── */
+.trust {
+  padding: 100px 48px;
+  background: var(--paper);
+}
+
+/* ── STORIES ── */
+.stories {
+  padding: 100px 48px;
+  background: var(--paper);
+}
+
+.stories-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px; margin-top: 64px;
+}
+
+.story {
+  background: white; border-radius: 20px;
+  border: 1.5px solid rgba(28,24,20,0.08);
+  padding: 32px;
+  position: relative;
+  transition: all 0.3s;
+}
+.story:hover { transform: translateY(-4px); box-shadow: 6px 6px 0 rgba(28,24,20,0.06); }
+.story:nth-child(2) { transform: rotate(0.6deg); }
+.story:nth-child(2):hover { transform: rotate(0.6deg) translateY(-4px); }
+.story:nth-child(3) { transform: rotate(-0.4deg); }
+.story:nth-child(3):hover { transform: rotate(-0.4deg) translateY(-4px); }
+
+.story-stars { font-size: 13px; color: #F5A623; margin-bottom: 16px; letter-spacing: 2px; }
+
+.story-quote {
+  font-family: var(--serif); font-size: 15px;
+  font-style: italic; color: var(--ink-light);
+  line-height: 1.75; margin-bottom: 24px;
+}
+.story-quote::before { content: '\201C'; font-size: 40px; color: var(--orange); line-height: 0; vertical-align: -16px; margin-right: 4px; }
+
+.story-author { display: flex; align-items: center; gap: 12px; }
+.author-circle {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--hand); font-size: 14px; color: white;
+  flex-shrink: 0;
+}
+.ac-orange { background: var(--orange); }
+.ac-green { background: var(--green); }
+.ac-warm { background: #D4A853; }
+
+.author-name { font-family: var(--hand); font-size: 15px; color: var(--ink); }
+.author-loc { font-size: 12px; color: var(--ink-muted); }
+
+.story-tag {
+  position: absolute; top: 20px; right: 20px;
+  background: var(--orange-pale); border-radius: 100px;
+  padding: 4px 12px; font-size: 11px;
+  font-family: var(--hand); color: var(--orange);
+  border: 1px dashed rgba(232,98,42,0.3);
+}
+
+/* ── FAQ ── */
+.faq {
+  padding: 100px 48px;
+  background: var(--cream);
+  max-width: 800px; margin: 0 auto;
+}
+
+.faq-list { margin-top: 56px; display: flex; flex-direction: column; gap: 0; }
+
+.faq-item {
+  border-bottom: 1.5px solid rgba(28,24,20,0.1);
+  overflow: hidden;
+}
+.faq-q {
+  width: 100%; text-align: left; background: none; border: none;
+  padding: 24px 0; display: flex; justify-content: space-between;
+  align-items: center; cursor: pointer;
+  font-family: var(--serif); font-size: 18px;
+  font-weight: 500; color: var(--ink);
+  transition: color 0.2s;
+}
+.faq-q:hover { color: var(--orange); }
+.faq-toggle {
+  font-family: var(--hand); font-size: 22px; color: var(--orange);
+  transition: transform 0.3s; flex-shrink: 0; margin-left: 20px;
+}
+.faq-item.open .faq-toggle { transform: rotate(45deg); }
+.faq-a {
+  font-size: 15px; color: var(--ink-light);
+  line-height: 1.75; max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease, padding-bottom 0.3s;
+  padding-bottom: 0;
+}
+.faq-item.open .faq-a { max-height: 300px; padding-bottom: 24px; }
+
+/* ── JOIN CTA ── */
+.join {
+  padding: 120px 48px;
+  background: var(--orange);
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+
+.join::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1.5' fill='rgba(255,255,255,0.15)'/%3E%3C/svg%3E");
+  background-size: 40px;
+}
+
+.join-eyebrow {
+  font-family: var(--hand); font-size: 15px;
+  color: rgba(255,255,255,0.75); margin-bottom: 16px;
+}
+
+.join h2 {
+  font-family: var(--serif); font-size: clamp(36px, 5vw, 64px);
+  font-weight: 600; color: white; line-height: 1.1;
+  letter-spacing: -0.02em; margin-bottom: 20px;
+  position: relative;
+}
+
+.join-sub {
+  font-size: 17px; color: rgba(255,255,255,0.8);
+  max-width: 500px; margin: 0 auto 40px;
+  font-weight: 300;
+}
+
+.join-form {
+  display: flex; gap: 0; max-width: 440px; margin: 0 auto;
+  background: white; border-radius: 100px;
+  padding: 6px 6px 6px 24px;
+  box-shadow: 6px 6px 0 rgba(28,24,20,0.15);
+}
+.join-form input {
+  flex: 1; border: none; outline: none; background: none;
+  font-family: var(--sans); font-size: 15px; color: var(--ink);
+}
+.join-form input::placeholder { color: var(--ink-muted); }
+.join-form button {
+  background: var(--ink); color: white;
+  border: none; padding: 12px 24px; border-radius: 100px;
+  font-family: var(--hand); font-size: 15px; cursor: pointer;
+  transition: background 0.2s; white-space: nowrap;
+}
+.join-form button:hover { background: var(--green); }
+
+.join-note {
+  font-family: var(--hand); font-size: 13px;
+  color: rgba(255,255,255,0.65); margin-top: 16px;
+}
+
+.join-countries {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; margin-top: 48px; flex-wrap: wrap;
+}
+.country-pill {
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 100px; padding: 6px 16px;
+  font-size: 13px; color: white;
+  font-family: var(--hand);
+}
+.country-pill.active {
+  background: white; color: var(--orange); font-weight: 600;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 48px 48px 32px;
+  background: var(--ink); color: var(--cream);
+  display: flex; flex-direction: column; gap: 32px;
+}
+.footer-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  flex-wrap: wrap; gap: 32px;
+}
+.footer-logo {
+  font-family: var(--hand); font-size: 28px;
+  color: var(--cream); text-decoration: none;
+}
+.footer-logo span { color: var(--orange); }
+.footer-tagline { font-size: 13px; color: rgba(245,240,232,0.4); margin-top: 6px; font-style: italic; font-family: var(--serif); }
+
+.footer-links {
+  display: flex; gap: 32px; list-style: none; flex-wrap: wrap;
+}
+.footer-links a { color: rgba(245,240,232,0.5); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+.footer-links a:hover { color: var(--orange); }
+
+.footer-bottom {
+  border-top: 1px solid rgba(245,240,232,0.08);
+  padding-top: 24px;
+  display: flex; justify-content: space-between;
+  font-size: 12px; color: rgba(245,240,232,0.3);
+  flex-wrap: wrap; gap: 12px;
+}
+.footer-made { font-family: var(--hand); font-size: 13px; color: rgba(245,240,232,0.4); }
+.footer-made span { color: var(--orange); }
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+  .hero-right { display: none; }
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  section, .why, .how, .features, .psych, .trust, .stories, .faq, .join { padding: 80px 24px; }
+  .why-rows { gap: 0; }
+  .why-row { grid-template-columns: 60px 1fr; gap: 24px; }
+  .why-row-body { display: none; }
+  .features-grid, .psych-grid, .stories-grid { grid-template-columns: 1fr; }
+  .trust-statement { grid-template-columns: 1fr; gap: 12px; }
+  .trust-stmt-marker { display: none; }
+  .how-inner { grid-template-columns: 1fr; }
+  footer { padding: 40px 24px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Hai<span>K</span> !</a>
+  <ul class="nav-links">
+    <li><a href="#why">Why</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#stories">Stories</a></li>
+  </ul>
+  <button class="nav-join" onclick="document.getElementById('join').scrollIntoView({behavior:'smooth'})">Join us ✦</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-kicker">✦ Now starting in Japan</div>
+    <h1>
+      Feel <em>Connected</em>,<br>
+      <span class="underline-sketch">Instantly</span>.<br>
+      Wherever You Are.
+    </h1>
+    <p class="hero-sub">A new way to meet people around you, when you need it most. No planning. No swiping. Just presence.</p>
+    <div class="hero-actions">
+      <button class="btn-main">Find People Near Me <span>→</span></button>
+      <button class="btn-secondary">See how it works</button>
+    </div>
+    <div class="hero-annotation">No account needed to explore</div>
+  </div>
+
+  <div class="hero-right">
+    <div class="map-card">
+      <div class="map-bg">
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="dot-person p1">
+          <div class="dot-bubble orange">☕</div>
+          <div class="dot-label online">Rina · Shibuya</div>
+        </div>
+        <div class="dot-person p2">
+          <div class="dot-bubble green">🚶</div>
+          <div class="dot-label online">Mark · Harajuku</div>
+        </div>
+        <div class="dot-person p3">
+          <div class="dot-bubble warm">📖</div>
+          <div class="dot-label online">Yuna · Nearby</div>
+        </div>
+        <div class="dot-person p4">
+          <div class="dot-bubble orange">🎵</div>
+          <div class="dot-label online">Kenji · 200m</div>
+        </div>
+        <div class="dot-person p5">
+          <div class="dot-bubble green">🌿</div>
+          <div class="dot-label online">Aiko · 450m</div>
+        </div>
+      </div>
+      <div class="map-footer">
+        <span class="map-status">12 people open to connect now</span>
+        <span class="map-count">Tokyo · Shibuya ✦</span>
+      </div>
+    </div>
+
+    <div class="story-cards">
+      <div class="story-card">
+        <div class="story-emoji">☕</div>
+        <div class="story-text">"Met my now-roommate through HaiK in 20 mins."</div>
+        <div class="story-who">— Rina, 28 · Tokyo</div>
+      </div>
+      <div class="story-card">
+        <div class="story-emoji">🗺️</div>
+        <div class="story-text">"Found a local guide within 10 mins of landing in Osaka."</div>
+        <div class="story-who">— Mark, 32 · Kyoto</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why" id="why">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Why This Exists</div>
+    <h2 class="section-title">We've never been more <em>connected</em><br>— and lonelier.</h2>
+  </div>
+  <div class="why-rows">
+
+    <div class="why-row reveal">
+      <div class="why-row-num">01</div>
+      <div>
+        <h3 class="why-row-title">How many friends have walked<br><em>right past you</em> today?</h3>
+        <span class="why-row-tag">Missed Connections</span>
+      </div>
+      <p class="why-row-body">Strangers who share your coffee shop, your train car, your park bench. People you'd genuinely like — if only the invisible wall between you would come down. HaiK removes the wall.</p>
+    </div>
+
+    <div class="why-row reveal reveal-delay-1">
+      <div class="why-row-num">02</div>
+      <div>
+        <h3 class="why-row-title">The first word is always<br>the <em>hardest</em> one.</h3>
+        <span class="why-row-tag">Social Anxiety</span>
+      </div>
+      <p class="why-row-body">We've all felt it — the hesitation, the overthinking, the missed moment. HaiK does the heavy lifting of the first step so you can just show up as yourself.</p>
+    </div>
+
+    <div class="why-row reveal reveal-delay-2">
+      <div class="why-row-num">03</div>
+      <div>
+        <h3 class="why-row-title">Other apps show people<br><em>miles away.</em> We don't.</h3>
+        <span class="why-row-tag">No Nearby Options</span>
+      </div>
+      <p class="why-row-body">Your neighbourhood is full of people. People who get your weather, your commute, your favourite spots. We connect you to them — not someone three cities over.</p>
+    </div>
+
+    <div class="why-row reveal reveal-delay-3">
+      <div class="why-row-num">04</div>
+      <div>
+        <h3 class="why-row-title">Friendship shouldn't need<br>a <em>calendar invite.</em></h3>
+        <span class="why-row-tag">Planned Fatigue</span>
+      </div>
+      <p class="why-row-body">The best moments are unplanned. A coffee that stretches into three hours. A walk that becomes a story. HaiK is built for right now — not next Tuesday at 6pm.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <div>
+      <div class="section-header reveal">
+        <div class="section-eyebrow">How It Works</div>
+        <h2 class="section-title">Three steps to a <em>real</em> connection.</h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal reveal-delay-1">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3 class="step-title">Set Your Vibe</h3>
+            <p class="step-desc">Choose your current mood and availability. Feeling social? Just chilling? Want quiet company? We'll match you accordingly — no judgment.</p>
+            <span class="step-tag">✦ Takes 10 seconds</span>
+          </div>
+        </div>
+        <div class="step reveal reveal-delay-2">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3 class="step-title">See Who's Nearby</h3>
+            <p class="step-desc">Discover people in your vicinity who are open to connect right now. No waiting, no guessing, no algorithms deciding who you should meet.</p>
+            <span class="step-tag">✦ Real-time · within 500m</span>
+          </div>
+        </div>
+        <div class="step reveal reveal-delay-3">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3 class="step-title">Meet Up</h3>
+            <p class="step-desc">Grab coffee, take a walk, share an activity. Our AI suggests meetup ideas based on your combined vibes. The rest? That's all you.</p>
+            <span class="step-tag">✦ First meetup is always free</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- right side — vibe selector mockup -->
+    <div class="reveal reveal-delay-2">
+      <div style="background:white;border-radius:24px;border:2px solid rgba(28,24,20,0.08);padding:32px;box-shadow:6px 6px 0 rgba(28,24,20,0.06);">
+        <div style="font-family:var(--hand);font-size:14px;color:var(--ink-muted);margin-bottom:20px;">What's your vibe right now?</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:14px;padding:16px;background:var(--orange-pale);border:2px solid rgba(232,98,42,0.3);border-radius:14px;cursor:pointer;">
+            <span style="font-size:22px;">☕</span>
+            <div>
+              <div style="font-family:var(--serif);font-size:15px;font-weight:600;">Coffee & Chat</div>
+              <div style="font-size:12px;color:var(--ink-muted);">Open for a good conversation</div>
+            </div>
+            <div style="margin-left:auto;width:20px;height:20px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;color:white;font-size:11px;">✓</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:16px;background:rgba(28,24,20,0.02);border:1.5px solid rgba(28,24,20,0.07);border-radius:14px;cursor:pointer;">
+            <span style="font-size:22px;">🚶</span>
+            <div>
+              <div style="font-family:var(--serif);font-size:15px;font-weight:600;">Walk & Explore</div>
+              <div style="font-size:12px;color:var(--ink-muted);">Let's wander somewhere</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:16px;background:rgba(28,24,20,0.02);border:1.5px solid rgba(28,24,20,0.07);border-radius:14px;cursor:pointer;">
+            <span style="font-size:22px;">📖</span>
+            <div>
+              <div style="font-family:var(--serif);font-size:15px;font-weight:600;">Quiet Company</div>
+              <div style="font-size:12px;color:var(--ink-muted);">Just chilling, no pressure</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:16px;background:rgba(28,24,20,0.02);border:1.5px solid rgba(28,24,20,0.07);border-radius:14px;cursor:pointer;">
+            <span style="font-size:22px;">🎵</span>
+            <div>
+              <div style="font-family:var(--serif);font-size:15px;font-weight:600;">Activity Buddy</div>
+              <div style="font-size:12px;color:var(--ink-muted);">Gym, market, museum — you pick</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:20px;padding-top:20px;border-top:1px solid rgba(28,24,20,0.08);display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-family:var(--hand);font-size:13px;color:var(--ink-muted);">8 people match your vibe nearby ✦</div>
+          <button style="background:var(--orange);color:white;border:none;padding:10px 20px;border-radius:100px;font-family:var(--hand);font-size:14px;cursor:pointer;box-shadow:2px 2px 0 rgba(28,24,20,0.15);">Show me →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Features</div>
+    <h2 class="section-title">Designed for <em>authentic</em>, spontaneous connections.</h2>
+  </div>
+  <div class="features-grid">
+    <div class="feat reveal reveal-delay-1">
+      <div class="feat-num">01</div>
+      <div class="feat-icon">⚡</div>
+      <h3 class="feat-title">Meet Now Mode</h3>
+      <p class="feat-desc">Instantly see who's available nearby for spontaneous connections. No planning needed — just open the app and go.</p>
+    </div>
+    <div class="feat reveal reveal-delay-2">
+      <div class="feat-num">02</div>
+      <div class="feat-icon">✨</div>
+      <h3 class="feat-title">AI Group Names</h3>
+      <p class="feat-desc">"Sunset Stroll Squad" or "Coffee & Deep Talks Crew" — our AI creates fun names that signal the right energy match before you even meet.</p>
+    </div>
+    <div class="feat reveal reveal-delay-3">
+      <div class="feat-num">03</div>
+      <div class="feat-icon">🫂</div>
+      <h3 class="feat-title">Group Vibes</h3>
+      <p class="feat-desc">Join 2–3 people already hanging out. Perfect when you want company but not the intensity of a one-on-one first meeting.</p>
+    </div>
+    <div class="feat reveal reveal-delay-1">
+      <div class="feat-num">04</div>
+      <div class="feat-icon">📍</div>
+      <h3 class="feat-title">Transparency Tracker</h3>
+      <p class="feat-desc">"Alex is on their way!" or "Akira is 5 minutes late" — real-time updates so you're never left wondering by the café door.</p>
+    </div>
+    <div class="feat reveal reveal-delay-2">
+      <div class="feat-num">05</div>
+      <div class="feat-icon">📸</div>
+      <h3 class="feat-title">Memory Board</h3>
+      <p class="feat-desc">A beautiful, private record of all your past meetups. Watch your social life bloom, one connection at a time.</p>
+    </div>
+    <div class="feat reveal reveal-delay-3">
+      <div class="feat-num">06</div>
+      <div class="feat-icon">🌱</div>
+      <h3 class="feat-title">Intention Setting</h3>
+      <p class="feat-desc">"Unlock by writing a 3-word intention" — small actions that lead to more meaningful connections and less ghosting.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PSYCHOLOGY -->
+<section class="psych">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Psychological Moonshots</div>
+    <h2 class="section-title">We use <em>behavioral science</em><br>to make connection feel natural.</h2>
+  </div>
+  <div class="psych-grid">
+    <div class="psych-card reveal reveal-delay-1">
+      <div class="psych-concept">Goal Gradient Effect</div>
+      <h3 class="psych-title">Progress Motivates</h3>
+      <p class="psych-quote">"You're 80% closer to a new friend!"</p>
+      <p class="psych-desc">Visual progress bars that make completing a connection feel achievable and rewarding, not daunting.</p>
+    </div>
+    <div class="psych-card reveal reveal-delay-2">
+      <div class="psych-concept">Endowment Effect</div>
+      <h3 class="psych-title">Experiences Gain Value</h3>
+      <p class="psych-quote">"Your Memory Board grows richer every meet."</p>
+      <p class="psych-desc">People value what they already possess. Your collected memories become more precious over time.</p>
+    </div>
+    <div class="psych-card reveal reveal-delay-3">
+      <div class="psych-concept">Positive Framing</div>
+      <h3 class="psych-title">Reframe the Stranger</h3>
+      <p class="psych-quote">"You don't meet strangers — you discover people already near your vibe."</p>
+      <p class="psych-desc">Language shapes how we feel. We choose words that make meeting someone new feel warm, not scary.</p>
+    </div>
+    <div class="psych-card reveal reveal-delay-1">
+      <div class="psych-concept">Designed Friction</div>
+      <h3 class="psych-title">Slow Down to Connect</h3>
+      <p class="psych-quote">"To connect, you must slow down."</p>
+      <p class="psych-desc">Small intentional actions — writing an intention, choosing your vibe — lead to more authentic interaction.</p>
+    </div>
+    <div class="psych-card reveal reveal-delay-2">
+      <div class="psych-concept">Surprise Mechanics</div>
+      <h3 class="psych-title">Delight Through Waitlists</h3>
+      <p class="psych-quote">"Waitlist unlocks when a 3rd person joins your vibe."</p>
+      <p class="psych-desc">Unexpected social moments create stronger memories than planned ones. We engineer delightful surprises.</p>
+    </div>
+    <div class="psych-card reveal reveal-delay-3">
+      <div class="psych-concept">Tone Matching</div>
+      <h3 class="psych-title">Reduce Awkwardness</h3>
+      <p class="psych-quote">"Compatible communication styles, silently matched."</p>
+      <p class="psych-desc">Our system subtly pairs people with compatible energy levels and communication styles before you even say hello.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust" id="trust">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Trust & Safety</div>
+    <h2 class="section-title">Your safety isn't a feature —<br>it's the <em>foundation</em>.</h2>
+  </div>
+  <div class="trust-manifesto">
+
+    <div class="trust-statement reveal">
+      <div class="trust-stmt-left">
+        <span class="trust-stmt-label">ID Verification</span>
+        <div class="trust-stmt-text">Every person on HaiK is <em>verified.</em><br>Real names. Real faces. Real accountability.</div>
+        <p class="trust-stmt-sub">All users verify their identity through secure methods. No fake profiles, no bots. The people you meet are exactly who they say they are.</p>
+      </div>
+      <div class="trust-stmt-marker">✦</div>
+    </div>
+
+    <div class="trust-statement reveal reveal-delay-1">
+      <div class="trust-stmt-left">
+        <span class="trust-stmt-label">Live Check-Ins</span>
+        <div class="trust-stmt-text">Someone always knows <em>where you are.</em><br>If you want them to.</div>
+        <p class="trust-stmt-sub">Optional live location sharing during meetups means a trusted friend or family member can follow along. Always your choice, always your control.</p>
+      </div>
+      <div class="trust-stmt-marker">✦</div>
+    </div>
+
+    <div class="trust-statement reveal reveal-delay-2">
+      <div class="trust-stmt-left">
+        <span class="trust-stmt-label">Gentle Accountability</span>
+        <div class="trust-stmt-text">We don't punish. We <em>nudge.</em><br>Because people deserve kindness, not shame.</div>
+        <p class="trust-stmt-sub">Small emotional reminders — not hard rules — encourage people to show up, be present, and respect each other's time. Connection starts with care.</p>
+      </div>
+      <div class="trust-stmt-marker">✦</div>
+    </div>
+
+    <div class="trust-statement reveal reveal-delay-3">
+      <div class="trust-stmt-left">
+        <span class="trust-stmt-label">Review-less Design</span>
+        <div class="trust-stmt-text">We are not here to <em>rate people.</em><br>We're here to understand them.</div>
+        <p class="trust-stmt-sub">No public star ratings. No scorecards. Just private feedback that quietly improves how we match people — without turning anyone into a product.</p>
+      </div>
+      <div class="trust-stmt-marker">✦</div>
+    </div>
+
+    <div class="trust-statement reveal reveal-delay-1">
+      <div class="trust-stmt-left">
+        <span class="trust-stmt-label">Invisible Mode</span>
+        <div class="trust-stmt-text">You can always <em>disappear.</em><br>No questions asked. No pressure.</div>
+        <p class="trust-stmt-sub">Pause your visibility whenever you need to. Browse freely, take a break, recharge — others simply won't see you're available. Your presence is always opt-in.</p>
+      </div>
+      <div class="trust-stmt-marker">✦</div>
+    </div>
+
+    <div class="trust-statement reveal reveal-delay-2">
+      <div class="trust-stmt-left">
+        <span class="trust-stmt-label">AI Tone Matching</span>
+        <div class="trust-stmt-text">Before you even say hello,<br>we've already <em>broken the ice.</em></div>
+        <p class="trust-stmt-sub">Our system quietly matches compatible communication styles — introverts with introverts, high-energy with high-energy — so first moments feel natural, not forced.</p>
+      </div>
+      <div class="trust-stmt-marker">✦</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- STORIES -->
+<section class="stories" id="stories">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Real Stories</div>
+    <h2 class="section-title">Hear from our <em>early community</em>.</h2>
+  </div>
+  <div class="stories-grid">
+    <div class="story reveal reveal-delay-1">
+      <div class="story-tag">Tokyo ✦</div>
+      <div class="story-stars">★★★★★</div>
+      <p class="story-quote">I met my current roommate through HaiK in Shibuya! We had coffee, clicked immediately, and two weeks later when I mentioned needing a place, the rest was history. It felt so much more natural than scrolling through listings.</p>
+      <div class="story-author">
+        <div class="author-circle ac-orange">R</div>
+        <div>
+          <div class="author-name">Rina, 28</div>
+          <div class="author-loc">Tokyo, Japan</div>
+        </div>
+      </div>
+    </div>
+    <div class="story reveal reveal-delay-2">
+      <div class="story-tag">Osaka ✦</div>
+      <div class="story-stars">★★★★★</div>
+      <p class="story-quote">Finally, I didn't have to wait a week for someone to plan meets. Within 10 minutes of landing in Osaka, I found someone to explore the city with. HaiK changed how I travel completely.</p>
+      <div class="story-author">
+        <div class="author-circle ac-green">M</div>
+        <div>
+          <div class="author-name">Mark, 32</div>
+          <div class="author-loc">Kyoto, Japan</div>
+        </div>
+      </div>
+    </div>
+    <div class="story reveal reveal-delay-3">
+      <div class="story-tag">Osaka ✦</div>
+      <div class="story-stars">★★★★★</div>
+      <p class="story-quote">As an introvert, I love that I can set my status to "Just Chilling" and find others who want quiet company. Met my favourite study buddy this way — no pressure to be "on" all the time.</p>
+      <div class="story-author">
+        <div class="author-circle ac-warm">Y</div>
+        <div>
+          <div class="author-name">Yuna, 22</div>
+          <div class="author-loc">Osaka, Japan</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<div class="faq">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Your Questions</div>
+    <h2 class="section-title">Everything you want to <em>know</em>.</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Is it safe? <span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-a">Safety is our top priority. All users verify their identity, and we offer live location sharing during meetups. You're always in control of who you connect with and can leave any situation at any time.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        What if the meetup goes awkward? <span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-a">Awkwardness is part of meeting new people! Our AI helps match compatible vibes, and all meetups start with a suggested activity to break the ice. You can always politely excuse yourself if it's not clicking.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Can I hide my profile sometimes? <span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-a">Absolutely. Pause your visibility anytime with Invisible Mode. You'll still be able to browse, but others won't see that you're available to connect. No pressure, ever.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        What if I get stood up? <span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-a">Our accountability system gently reminds users when they're about to miss a connection. If someone cancels last minute, we'll immediately show you other nearby options so your time is never wasted.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Is this only for extroverts? <span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-a">Not at all! Many of our users identify as introverts. That's why we offer vibe settings like "Just Chilling" or "Quiet Company" for lower-energy connections. You always set the tone.</div>
+    </div>
+  </div>
+</div>
+
+<!-- JOIN CTA -->
+<section class="join" id="join">
+  <div class="join-eyebrow">✦ Be part of the movement</div>
+  <h2>The return of<br><em>serendipity</em>.</h2>
+  <p class="join-sub">This isn't just an app. It's how friendship happens in real-time, in the real world, right where you are.</p>
+  <div class="join-form">
+    <input type="email" placeholder="your@email.com">
+    <button>Join the waitlist →</button>
+  </div>
+  <p class="join-note">No spam. Ever. Just a nudge when we launch near you.</p>
+  <div class="join-countries">
+    <div class="country-pill active">🇯🇵 Japan — Open</div>
+    <div class="country-pill">🇺🇸 USA — Coming soon</div>
+    <div class="country-pill">🇬🇧 UK — Coming soon</div>
+    <div class="country-pill">🇦🇺 AUS — Coming soon</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <a href="#" class="footer-logo">Hai<span>K</span> !</a>
+      <p class="footer-tagline">Bringing back spontaneous human connection.</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#why">Why</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#trust">Safety</a></li>
+      <li><a href="#stories">Stories</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 HaiK. All rights reserved.</span>
+    <span class="footer-made">Made with <span>♥</span> for lonely wanderers everywhere.</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // FAQ accordion
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Nav active on scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.boxShadow = window.scrollY > 40 ? '0 2px 20px rgba(28,24,20,0.08)' : 'none';
+  });
+
+  // Vibe card interactions
+  document.querySelectorAll('.feat').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.style.borderColor = 'rgba(232,98,42,0.25)';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.borderColor = 'rgba(28,24,20,0.08)';
+    });
+  });
+</script>
+</body>
+</html>
